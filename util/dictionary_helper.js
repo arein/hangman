@@ -9,14 +9,14 @@ var DictionaryHelper = function (lengthsObj) {
 
 DictionaryHelper.prototype.populate = function (callback) {
     var fs = require("fs");
-    fs.readFile('file', 'utf8', function (err, data) {
+    fs.readFile('./../vendor/dictionary/dictionary.json', 'utf8', function (err, data) {
         if (err) return callback (err);
         obj = JSON.parse(data);
         this.buildMatrix(obj);
     });
 };
 
-DictionaryHelper.prototype.buildMatrix = function (data) {
+DictionaryHelper.prototype.buildMatrix = function (data, callback) {
         for(var key in data) {
         key = key.toLowerCase();
         if (key.match(/^[a-z]+$/).length > 0) {
@@ -36,6 +36,12 @@ DictionaryHelper.prototype.buildMatrix = function (data) {
             }
         }
     }
+
+    this.sortMatrix(callback);
+};
+
+DictionaryHelper.prototype.sortMatrix = function (callback) {
+    callback();
 };
 
 module.exports = DictionaryHelper;
